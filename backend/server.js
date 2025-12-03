@@ -12,6 +12,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.MONGODB_DB || "assistant-db";
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
 const OPENAI_KEY = process.env.OPENAI_API_KEY;
+const IS_VERCEL = Boolean(process.env.VERCEL);
 
 if (!OPENAI_KEY) {
   console.warn("[OpenAI] OPENAI_API_KEY não definida. Configure no .env para habilitar respostas da IA.");
@@ -180,7 +181,9 @@ app.get("/health", async (_req, res) => {
   return res.json({ ok: true, mongo: getMongoStatus() });
 });
 
-app.get("/", (_req, res) => {
+app.get("/", async (_req, res) => {
+  await connectToDatabase();
+
   const now = new Date();
   const mongoState = getMongoStatus();
   const mongoOk = mongoState === 1;
@@ -403,13 +406,17 @@ ${openaiConfigured ? "OpenAI pronta para uso." : "OpenAI não configurada."}
   return res.send(html);
 });
 
-async function startServer() {
-  await connectToDatabase();
-  app.listen(PORT, () => {
-    console.log(`[Server] Rodando na porta ${PORT}`);
+if (!IS_VERCEL) {
+  async function startServer() {
+    await connectToDatabase();
+    app.listen(PORT, () => {
+      console.log(`[Server] Rodando na porta ${PORT}`);
+    });
+  }
+
+  startServer().catch((err) => {
+    console.error("[Server] Erro ao iniciar:", err?.message || err);
   });
 }
 
-startServer().catch((err) => {
-  console.error("[Server] Erro ao iniciar:", err?.message || err);
-});
+export default app;
