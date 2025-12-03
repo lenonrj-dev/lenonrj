@@ -93,11 +93,18 @@ app.post("/api/assistant/chat", async (req, res) => {
     await connectToDatabase();
 
     const { sessionId, message, pagePath } = req.body || {};
+
     if (!sessionId || typeof sessionId !== "string") {
       return res.status(400).json({ error: "sessionId inválido" });
     }
     if (!message || typeof message !== "string" || !message.trim()) {
-      return res.status(400).json({ error: "Mensagem obrigatória" });
+      return res.status(400).json({ error: "Campo 'message' é obrigatório." });
+    }
+
+    const mongoState = getMongoStatus();
+    if (mongoState !== 1) {
+      console.error("[Assistant API] MongoDB indisponível. Estado:", mongoState);
+      return res.status(503).json({ error: "Serviço temporariamente indisponível. Tente novamente em instantes." });
     }
 
     const existingSession = await ChatSession.findOne({ sessionId });
@@ -120,9 +127,16 @@ app.post("/api/assistant/chat", async (req, res) => {
       pagePath,
     });
 
+    if (!OPENAI_KEY) {
+      console.error("[Assistant API] OPENAI_API_KEY não configurada.");
+      return res
+        .status(500)
+        .json({ error: "Configuração de OpenAI ausente. Contate o responsável pelo backend." });
+    }
+
     let replyText = "Desculpe, não consegui responder agora. Tente novamente em instantes, por favor.";
 
-    if (OPENAI_KEY) {
+    try {
       const recentMessages = await ChatMessage.find({ sessionId })
         .sort({ createdAt: -1 })
         .limit(8)
@@ -158,12 +172,31 @@ app.post("/api/assistant/chat", async (req, res) => {
 
       if (!response.ok) {
         const errText = await response.text();
-        console.error("OpenAI error:", errText);
-        throw new Error("Falha ao obter resposta da IA");
+        console.error("[Assistant API] Erro OpenAI:", {
+          status: response.status,
+          statusText: response.statusText,
+          body: errText,
+        });
+        return res
+          .status(response.status === 401 || response.status === 403 ? 502 : 500)
+          .json({ error: "Erro ao consultar modelo de IA. Tente novamente mais tarde." });
       }
 
       const data = await response.json();
-      replyText = data.choices?.[0]?.message?.content?.trim() || replyText;
+      const reply = data.choices?.[0]?.message?.content?.trim();
+      if (!reply) {
+        console.error("[Assistant API] Resposta vazia da OpenAI.");
+        return res.status(502).json({ error: "Não foi possível obter resposta da IA no momento." });
+      }
+      replyText = reply;
+    } catch (err) {
+      console.error("[Assistant API] Erro ao consultar OpenAI:", {
+        name: err?.name,
+        message: err?.message,
+        code: err?.code,
+        status: err?.status,
+      });
+      return res.status(500).json({ error: "Erro interno ao consultar a IA. Tente novamente em instantes." });
     }
 
     await ChatMessage.create({
@@ -175,7 +208,7 @@ app.post("/api/assistant/chat", async (req, res) => {
 
     return res.status(200).json({ reply: replyText });
   } catch (err) {
-    console.error(err);
+    console.error("[Assistant API] Erro inesperado:", err?.message || err);
     return res.status(500).json({ error: "Erro ao processar a conversa" });
   }
 });
