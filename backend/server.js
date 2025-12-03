@@ -7,28 +7,58 @@ import fetch from "node-fetch";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 4000;
-const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/assistant";
-const frontendOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
-const openaiKey = process.env.OPENAI_API_KEY;
+const PORT = process.env.PORT || 4000;
+const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_DB = process.env.MONGODB_DB || "assistant-db";
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+const OPENAI_KEY = process.env.OPENAI_API_KEY;
 
-if (!openaiKey) {
-  console.warn("Aviso: OPENAI_API_KEY não definida. Configure no .env para habilitar respostas da IA.");
+if (!OPENAI_KEY) {
+  console.warn("[OpenAI] OPENAI_API_KEY não definida. Configure no .env para habilitar respostas da IA.");
+}
+
+mongoose.set("strictQuery", false);
+
+mongoose.connection.on("connected", () => {
+  console.log("[MongoDB] Estado: connected");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.error("[MongoDB] Estado: error", err?.message || err);
+});
+
+mongoose.connection.on("disconnected", () => {
+  console.warn("[MongoDB] Estado: disconnected");
+});
+
+export const getMongoStatus = () => mongoose.connection.readyState; // 0=disconnected,1=connected,2=connecting,3=disconnecting
+
+export async function connectToDatabase() {
+  if (!MONGODB_URI) {
+    console.error("[MongoDB] Variável de ambiente MONGODB_URI não definida. Abortando conexão.");
+    return;
+  }
+
+  const state = mongoose.connection.readyState;
+  if (state === 1 || state === 2) {
+    return;
+  }
+
+  try {
+    await mongoose.connect(MONGODB_URI, { dbName: MONGODB_DB });
+    console.log("[MongoDB] Conectado com sucesso.");
+  } catch (err) {
+    console.error("[MongoDB] Erro ao conectar:", err?.message || err);
+  }
 }
 
 app.use(
   cors({
-    origin: frontendOrigin,
+    origin: FRONTEND_ORIGIN,
     credentials: false,
   })
 );
 app.use(express.json({ limit: "1mb" }));
-
-// Conexão MongoDB
-mongoose
-  .connect(mongoUri, { dbName: process.env.MONGODB_DB || "assistant" })
-  .then(() => console.log("OK. MongoDB conectado"))
-  .catch((err) => console.error("Erro ao conectar no MongoDB", err));
 
 const chatSessionSchema = new mongoose.Schema(
   {
@@ -55,6 +85,8 @@ const ChatMessage = mongoose.models.ChatMessage || mongoose.model("ChatMessage",
 
 app.post("/api/assistant/chat", async (req, res) => {
   try {
+    await connectToDatabase();
+
     const { sessionId, message, pagePath } = req.body || {};
     if (!sessionId || typeof sessionId !== "string") {
       return res.status(400).json({ error: "sessionId inválido" });
@@ -63,7 +95,6 @@ app.post("/api/assistant/chat", async (req, res) => {
       return res.status(400).json({ error: "Mensagem obrigatória" });
     }
 
-    // cria sessão se não existir
     const existingSession = await ChatSession.findOne({ sessionId });
     if (!existingSession) {
       await ChatSession.create({
@@ -77,7 +108,6 @@ app.post("/api/assistant/chat", async (req, res) => {
       await existingSession.save();
     }
 
-    // registra mensagem do usuário
     await ChatMessage.create({
       sessionId,
       role: "user",
@@ -87,7 +117,7 @@ app.post("/api/assistant/chat", async (req, res) => {
 
     let replyText = "Desculpe, não consegui responder agora. Tente novamente em instantes, por favor.";
 
-    if (openaiKey) {
+    if (OPENAI_KEY) {
       const recentMessages = await ChatMessage.find({ sessionId })
         .sort({ createdAt: -1 })
         .limit(8)
@@ -116,7 +146,7 @@ app.post("/api/assistant/chat", async (req, res) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${openaiKey}`,
+          Authorization: `Bearer ${OPENAI_KEY}`,
         },
         body: JSON.stringify(payload),
       });
@@ -131,7 +161,6 @@ app.post("/api/assistant/chat", async (req, res) => {
       replyText = data.choices?.[0]?.message?.content?.trim() || replyText;
     }
 
-    // salva resposta da IA
     await ChatMessage.create({
       sessionId,
       role: "assistant",
@@ -146,11 +175,14 @@ app.post("/api/assistant/chat", async (req, res) => {
   }
 });
 
-app.get("/health", (_req, res) => res.json({ ok: true }));
+app.get("/health", async (_req, res) => {
+  await connectToDatabase();
+  return res.json({ ok: true, mongo: getMongoStatus() });
+});
 
 app.get("/", (_req, res) => {
   const now = new Date();
-  const mongoState = mongoose.connection.readyState;
+  const mongoState = getMongoStatus();
   const mongoOk = mongoState === 1;
   const mongoLabel =
     mongoState === 1
@@ -161,7 +193,7 @@ app.get("/", (_req, res) => {
       ? "Desconectando"
       : "Desconectado";
 
-  const openaiConfigured = Boolean(openaiKey);
+  const openaiConfigured = Boolean(OPENAI_KEY);
   const allGood = mongoOk;
 
   const statusColor = allGood ? "#22c55e" : "#ef4444";
@@ -320,7 +352,7 @@ app.get("/", (_req, res) => {
           <div class="grid">
             <div class="tile">
               <span class="label">Porta</span>
-              <span class="value">${port}</span>
+              <span class="value">${PORT}</span>
             </div>
             <div class="tile">
               <span class="label">NODE_ENV</span>
@@ -342,7 +374,7 @@ app.get("/", (_req, res) => {
           <div class="grid">
             <div class="tile ${mongoOk ? "ok" : "warn"}">
               <span class="label">MongoDB</span>
-              <span class="value">${mongoLabel}${mongoOk ? " ✅" : " ❌"}</span>
+              <span class="value">${mongoLabel}${mongoOk ? " ✅" : mongoState === 2 ? " ⏳" : " ❌"}</span>
             </div>
             <div class="tile ${openaiConfigured ? "ok" : "warn"}">
               <span class="label">OpenAI API</span>
@@ -355,8 +387,8 @@ app.get("/", (_req, res) => {
           <h2>Resumo rápido</h2>
           <div class="log">
 Servidor iniciado com sucesso.
-Aguardando requisições na porta ${port}.
-${mongoOk ? "MongoDB conectado." : "MongoDB não conectado."}
+Aguardando requisições na porta ${PORT}.
+${mongoOk ? "MongoDB conectado." : `MongoDB ${mongoLabel.toLowerCase()}.`}
 ${openaiConfigured ? "OpenAI pronta para uso." : "OpenAI não configurada."}
           </div>
         </div>
@@ -371,6 +403,13 @@ ${openaiConfigured ? "OpenAI pronta para uso." : "OpenAI não configurada."}
   return res.send(html);
 });
 
-app.listen(port, () => {
-  console.log(`OK. Assistente backend rodando na porta ${port}`);
+async function startServer() {
+  await connectToDatabase();
+  app.listen(PORT, () => {
+    console.log(`[Server] Rodando na porta ${PORT}`);
+  });
+}
+
+startServer().catch((err) => {
+  console.error("[Server] Erro ao iniciar:", err?.message || err);
 });
