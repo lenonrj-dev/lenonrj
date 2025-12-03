@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import fetch from "node-fetch";
+import OpenAI from "openai";
 
 dotenv.config();
 
@@ -14,6 +14,8 @@ const FRONTEND_ORIGIN_RAW = process.env.FRONTEND_ORIGIN || "http://localhost:300
 const FRONTEND_ORIGIN = FRONTEND_ORIGIN_RAW.replace(/\/$/, "");
 const OPENAI_KEY = process.env.OPENAI_API_KEY;
 const IS_VERCEL = Boolean(process.env.VERCEL);
+
+const openaiClient = OPENAI_KEY ? new OpenAI({ apiKey: OPENAI_KEY }) : null;
 
 if (!OPENAI_KEY) {
   console.warn("[OpenAI] OPENAI_API_KEY não definida. Configure no .env para habilitar respostas da IA.");
@@ -127,7 +129,7 @@ app.post("/api/assistant/chat", async (req, res) => {
       pagePath,
     });
 
-    if (!OPENAI_KEY) {
+    if (!openaiClient) {
       console.error("[Assistant API] OPENAI_API_KEY não configurada.");
       return res
         .status(500)
@@ -154,36 +156,14 @@ app.post("/api/assistant/chat", async (req, res) => {
         "Inclua detalhes de serviços, etapas de projeto (descoberta, design, desenvolvimento, testes, go-live), tecnologias usadas (Next.js, React, TailwindCSS, Framer Motion) e preocupações com performance, acessibilidade e SEO técnico. " +
         "Se a pergunta não estiver relacionada aos serviços ou projetos do portfólio, informe de forma educada que só responde sobre esses temas.";
 
-      const payload = {
+      const completion = await openaiClient.chat.completions.create({
         model: process.env.OPENAI_MODEL || "gpt-4o-mini",
         messages: [{ role: "system", content: systemPrompt }, ...history, { role: "user", content: message }],
         temperature: 0.6,
         max_tokens: 450,
-      };
-
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${OPENAI_KEY}`,
-        },
-        body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        const errText = await response.text();
-        console.error("[Assistant API] Erro OpenAI:", {
-          status: response.status,
-          statusText: response.statusText,
-          body: errText,
-        });
-        return res
-          .status(response.status === 401 || response.status === 403 ? 502 : 500)
-          .json({ error: "Erro ao consultar modelo de IA. Tente novamente mais tarde." });
-      }
-
-      const data = await response.json();
-      const reply = data.choices?.[0]?.message?.content?.trim();
+      const reply = completion.choices?.[0]?.message?.content?.trim();
       if (!reply) {
         console.error("[Assistant API] Resposta vazia da OpenAI.");
         return res.status(502).json({ error: "Não foi possível obter resposta da IA no momento." });
@@ -196,7 +176,10 @@ app.post("/api/assistant/chat", async (req, res) => {
         code: err?.code,
         status: err?.status,
       });
-      return res.status(500).json({ error: "Erro interno ao consultar a IA. Tente novamente em instantes." });
+      const status = err?.status && Number.isInteger(err.status) ? err.status : 500;
+      return res
+        .status(status === 401 || status === 403 ? 502 : status >= 400 && status < 600 ? status : 500)
+        .json({ error: "Erro ao consultar modelo de IA. Tente novamente mais tarde." });
     }
 
     await ChatMessage.create({
