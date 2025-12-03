@@ -10,7 +10,8 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.MONGODB_DB || "assistant-db";
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+const FRONTEND_ORIGIN_RAW = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+const FRONTEND_ORIGIN = FRONTEND_ORIGIN_RAW.replace(/\/$/, "");
 const OPENAI_KEY = process.env.OPENAI_API_KEY;
 const IS_VERCEL = Boolean(process.env.VERCEL);
 
@@ -53,12 +54,15 @@ export async function connectToDatabase() {
   }
 }
 
-app.use(
-  cors({
-    origin: FRONTEND_ORIGIN,
-    credentials: false,
-  })
-);
+const corsOptions = {
+  origin: FRONTEND_ORIGIN,
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json({ limit: "1mb" }));
 
 const chatSessionSchema = new mongoose.Schema(
