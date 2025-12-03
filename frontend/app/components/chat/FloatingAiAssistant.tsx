@@ -27,7 +27,15 @@ export function FloatingAiAssistant() {
   const [sessionId] = useState(() => `${Date.now()}-${Math.random().toString(16).slice(2)}`);
   const listRef = useRef<HTMLDivElement | null>(null);
 
-  const endpoint = useMemo(() => process.env.NEXT_PUBLIC_ASSISTANT_API || "/api/assistant/chat", []);
+  const endpoint = useMemo(() => {
+    if (process.env.NEXT_PUBLIC_ASSISTANT_API) {
+      return process.env.NEXT_PUBLIC_ASSISTANT_API;
+    }
+    const isLocal = typeof window !== "undefined" && window.location.hostname === "localhost";
+    return isLocal
+      ? "http://localhost:4000/api/assistant/chat"
+      : "https://lenonrj-backend.vercel.app/api/assistant/chat";
+  }, []);
 
   useEffect(() => {
     if (listRef.current) {
