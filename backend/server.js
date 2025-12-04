@@ -10,10 +10,12 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.MONGODB_DB || "assistant-db";
-const FRONTEND_ORIGIN_RAW = process.env.FRONTEND_ORIGIN || "https://lenonrj.dev/";
-const FRONTEND_ORIGIN = FRONTEND_ORIGIN_RAW.replace(/\/$/, "");
 const OPENAI_KEY = process.env.OPENAI_API_KEY;
 const IS_VERCEL = Boolean(process.env.VERCEL);
+
+const allowedOrigins = ["https://lenonrj.dev", "https://www.lenonrj.dev", "http://localhost:3000"].map((o) =>
+  o.replace(/\/$/, "")
+);
 
 const openaiClient = OPENAI_KEY ? new OpenAI({ apiKey: OPENAI_KEY }) : null;
 
@@ -57,7 +59,12 @@ export async function connectToDatabase() {
 }
 
 const corsOptions = {
-  origin: FRONTEND_ORIGIN,
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // mesma origem / server-to-server
+    const clean = origin.replace(/\/$/, "");
+    if (allowedOrigins.includes(clean)) return callback(null, true);
+    return callback(new Error("Not allowed by CORS"));
+  },
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: false,
