@@ -85,15 +85,15 @@ export default function ServicesContent() {
   const demos = [
     {
       name: "CRM Analytics",
-      desktopImg: "https://res.cloudinary.com/demo/image/upload/v1690000000/sample.jpg",
-      mobileImg: "https://res.cloudinary.com/demo/image/upload/v1690000001/sample.jpg",
+      desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844365/ecommerce_pqbmpj.png",
+      mobileImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844365/ecommerce_pqbmpj.png",
       demo: "https://sua-demo-crm.com",
       tags: ["Dashboard", "KPIs", "Filtros"],
     },
     {
       name: "Loja StoreX",
-      desktopImg: "https://res.cloudinary.com/demo/image/upload/v1690000002/sample.jpg",
-      mobileImg: "https://res.cloudinary.com/demo/image/upload/v1690000003/sample.jpg",
+      desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764877248/Screenshot_8_qvffjj.png",
+      mobileImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764874328/EcommerceMoba_bd783d.png  ",
       demo: "https://sua-demo-storex.com",
       tags: ["E-commerce", "Checkout", "SEO"],
     },

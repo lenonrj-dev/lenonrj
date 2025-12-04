@@ -69,7 +69,7 @@ export default function AboutContent() {
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
-                href="/portfolio"
+                href="/services"
                 aria-label="Ver Portfolio"
                 className="inline-flex items-center gap-2 font-medium px-6 py-2.5 rounded-full border transition
                 border-gray-400 dark:border-white/60 bg-white dark:bg-black text-gray-900 dark:text-white

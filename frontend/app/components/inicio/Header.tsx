@@ -108,7 +108,7 @@ const Header = ({ isDarkMode }: HeaderProps) => {
         </Link>
 
         <Link
-          href="/portfolio"
+          href="/services"
           className="inline-flex items-center gap-2 font-medium px-8 py-2.5 rounded-full border transition
                      border-gray-900 bg-black text-white hover:opacity-90 dark:border-white/20 dark:bg-white dark:text-black"
           aria-label="Ver portfólio"

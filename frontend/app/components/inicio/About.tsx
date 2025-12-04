@@ -157,7 +157,7 @@ const About = ({ isDarkMode }: AboutProps) => {
 
       <motion.div variants={item} className="mt-12 text-center">
         <a
-          href="/portfolio"
+          href="/services"
           className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-gray-900 bg-black text-white
                      hover:opacity-90 dark:border-white/20 dark:bg-white dark:text-black transition"
           aria-label="Ver portfólio"

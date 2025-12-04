@@ -252,10 +252,10 @@ export default function ContactContent() {
             icon: <MessageCircle className="h-5 w-5" aria-hidden="true" />,
           },
           {
-            title: "Portfolio",
+            title: "servicos",
             desc: "Veja projetos, processos e resultados antes de falarmos.",
-            href: "/portfolio",
-            cta: "Ver portfolio",
+            href: "/services",
+            cta: "Ver servicos",
             icon: <ArrowUpRight className="h-4 w-4" aria-hidden="true" />,
           },
         ].map((card, i) => (
@@ -626,11 +626,11 @@ export default function ContactContent() {
         </motion.h2>
         <motion.div variants={item} className="mt-4 flex items-center justify-center gap-4">
           <Link
-            href="/portfolio"
+            href="/services"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
-            aria-label="Ver portfolio"
+            aria-label="Ver servicos"
           >
-            Ver portfolio
+            Ver servicos
           </Link>
           <a
             href="mailto:lenon.contato.dev.co@gmail.com"

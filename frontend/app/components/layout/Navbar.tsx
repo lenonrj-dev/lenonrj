@@ -10,7 +10,6 @@ const navLinks = [
   { name: "Inicio", href: "/" },
   { name: "Sobre Mim", href: "/about" },
   { name: "Servicos", href: "/services" },
-  { name: "Portfolio", href: "/portfolio" },
   { name: "Contato", href: "/contact" },
 ];
 

@@ -42,7 +42,7 @@ Portfólio e site de serviços do Lenon Alexandre, com foco em UI/UX, performanc
 │  ├─ page.tsx              # Home
 │  ├─ about/                # Página Sobre
 │  ├─ services/             # Página Serviços
-│  ├─ portfolio/            # Página Portfólio
+│  ├─ services/             # Página de serviços
 │  ├─ contact/              # Página Contato
 │  ├─ privacidade/          # Página Privacidade
 │  ├─ api/assistant/chat/   # Proxy para backend do assistente
