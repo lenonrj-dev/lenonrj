@@ -32,7 +32,7 @@ const About = ({ isDarkMode }: AboutProps) => {
         variants={item}
         className="text-center mb-2 text-2xl sm:text-3xl font-semibold font-Ovo tracking-tight text-gray-900 dark:text-white"
       >
-        Desenvolvimento Web & UX Estratégico
+        Desenvolvimento Web & UX Estrategico
       </motion.h2>
 
       <motion.h3
@@ -46,10 +46,10 @@ const About = ({ isDarkMode }: AboutProps) => {
         variants={item}
         className="mt-8 max-w-3xl mx-auto text-center text-lg leading-relaxed font-Ovo text-gray-700 dark:text-white/80"
       >
-        Desenvolvo <strong>sites tecnológicos, performáticos e responsivos</strong>, de
-        <strong> e-commerces</strong> e <strong>sites institucionais</strong> a
-        <strong> aplicativos mobile</strong>, com foco em <strong>UX/UI</strong>, acessibilidade e
-        <em> Core Web Vitals</em>, usando <strong>React, Next.js e TailwindCSS</strong> com animações profissionais em Framer Motion.
+        Desenvolvo <strong>sites tecnologicos, performaticos e responsivos</strong>, de{" "}
+        <strong>e-commerces</strong> e <strong>sites institucionais</strong> a{" "}
+        <strong>aplicativos mobile</strong>, com foco em <strong>UX/UI</strong>, acessibilidade e{" "}
+        <em>Core Web Vitals</em>, usando <strong>React, Next.js e TailwindCSS</strong> com animacoes profissionais em Framer Motion.
       </motion.p>
 
       <motion.ul
@@ -58,8 +58,8 @@ const About = ({ isDarkMode }: AboutProps) => {
         className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto"
       >
         {[
-          { n: "20+", l: "Projetos concluídos" },
-          { n: "2+ anos", l: "Experiência prática" },
+          { n: "20+", l: "Projetos concluidos" },
+          { n: "2+ anos", l: "Experiencia pratica" },
           { n: "100%", l: "Foco em acessibilidade" },
         ].map(({ n, l }, i) => (
           <motion.li
@@ -97,7 +97,7 @@ const About = ({ isDarkMode }: AboutProps) => {
                 <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{description}</p>
                 <div className="mt-3 inline-flex flex-wrap gap-2 text-[11px] text-gray-500 dark:text-gray-400">
                   <span className="px-2 py-0.5 rounded-full border border-gray-300 dark:border-gray-700">
-                    Qualidade de código
+                    Qualidade de codigo
                   </span>
                   <span className="px-2 py-0.5 rounded-full border border-gray-300 dark:border-gray-700">
                     Performance
@@ -117,7 +117,7 @@ const About = ({ isDarkMode }: AboutProps) => {
               Principais Ferramentas & Tecnologias
             </motion.h4>
             <motion.p variants={item} className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              Stack moderna para entregar rápido, com qualidade e escalabilidade.
+              Stack moderna para entregar rapido, com qualidade e escalabilidade.
             </motion.p>
 
             <motion.ul variants={container} role="list" className="mt-6 grid grid-cols-4 sm:grid-cols-5 gap-4">
@@ -160,9 +160,9 @@ const About = ({ isDarkMode }: AboutProps) => {
           href="/services"
           className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-gray-900 bg-black text-white
                      hover:opacity-90 dark:border-white/20 dark:bg-white dark:text-black transition"
-          aria-label="Ver portfólio"
+          aria-label="Ver portfolio"
         >
-          Ver portfólio
+          Ver portfolio
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </a>
       </motion.div>

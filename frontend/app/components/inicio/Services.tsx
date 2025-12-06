@@ -30,37 +30,37 @@ export default function Services(_props: ServicesProps = {}) {
       viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
       className="w-full px-6 md:px-[12%] py-20 scroll-mt-20"
-      aria-label="Serviços profissionais"
+      aria-label="Servicos profissionais"
     >
-      {/* Subtítulo */}
+      {/* Subtitulo */}
       <motion.h4
         variants={cardVariants}
         className="text-center mb-3 text-lg font-semibold text-blue-600 dark:text-white/90"
       >
-        O que eu posso fazer por você
+        O que eu posso fazer por voce
       </motion.h4>
 
       <motion.h2
         variants={cardVariants}
         className="text-center text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white"
       >
-        Serviços Profissionais de Desenvolvimento
+        Servicos Profissionais de Desenvolvimento
       </motion.h2>
 
-      {/* Descrição SEO */}
+      {/* Descricao SEO */}
       <motion.p
         variants={cardVariants}
         className="text-center max-w-3xl mx-auto mt-6 mb-12 text-gray-600 dark:text-gray-400 text-base md:text-lg leading-relaxed"
       >
-        Como <strong className="text-gray-900 dark:text-white">Desenvolvedor Full Stack</strong>, entrego soluções de{" "}
+        Como <strong className="text-gray-900 dark:text-white">Desenvolvedor Full Stack</strong>, entrego solucoes de{" "}
         <span className="font-medium text-blue-600 dark:text-white">UI/UX</span>,{" "}
         <span className="font-medium text-blue-600 dark:text-white">Frontend</span>,{" "}
         <span className="font-medium text-blue-600 dark:text-white">Backend</span> e{" "}
-        <span className="font-medium text-blue-600 dark:text-white">SEO técnico</span> com Next.js, React e Tailwind.
+        <span className="font-medium text-blue-600 dark:text-white">SEO tecnico</span> com Next.js, React e Tailwind.
         Foco em performance, acessibilidade e escalabilidade.
       </motion.p>
 
-      {/* Grid de Serviços */}
+      {/* Grid de Servicos */}
       <motion.ul
         variants={containerVariants}
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -83,7 +83,7 @@ export default function Services(_props: ServicesProps = {}) {
                 />
               </div>
 
-              {/* Título + descrição */}
+              {/* Titulo + descricao */}
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {title}
               </h3>
@@ -93,7 +93,7 @@ export default function Services(_props: ServicesProps = {}) {
 
               {/* Badges de valor (UX/SEO/Perf) */}
               <div className="mt-4 flex flex-wrap gap-2 text-[11px]">
-                {["UX acessível", "SEO técnico", "Alta performance"].map((b) => (
+                {["UX acessivel", "SEO tecnico", "Alta performance"].map((b) => (
                   <span
                     key={b}
                     className="px-2 py-0.5 rounded-full border border-gray-300 dark:border-gray-700
@@ -138,9 +138,9 @@ export default function Services(_props: ServicesProps = {}) {
         aria-label="Processo de trabalho"
       >
         {[
-          { t: "1. Descoberta", d: "Briefing, objetivos, público, conteúdo e requisitos técnicos." },
-          { t: "2. Design & Dev", d: "Fluxos, UI/UX, implementação, integrações e testes." },
-          { t: "3. Go Live & SEO", d: "Deploy, métricas (CWV), monitoramento e melhorias contínuas." },
+          { t: "1. Descoberta", d: "Briefing, objetivos, publico, conteudo e requisitos tecnicos." },
+          { t: "2. Design & Dev", d: "Fluxos, UI/UX, implementacao, integracoes e testes." },
+          { t: "3. Go Live & SEO", d: "Deploy, metricas (CWV), monitoramento e melhorias continuas." },
         ].map((s, i) => (
           <motion.div
             key={i}

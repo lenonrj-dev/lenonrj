@@ -48,7 +48,7 @@ const Work = ({ isDarkMode }: WorkProps) => {
         variants={cardVariants}
         className="text-center mb-3 text-lg font-semibold text-blue-600 dark:text-white"
       >
-        Meu Portfólio
+        Meu Portfolio
       </motion.h4>
 
       <motion.h2
@@ -63,9 +63,9 @@ const Work = ({ isDarkMode }: WorkProps) => {
         className="text-center max-w-3xl mx-auto mt-6 mb-14 text-gray-600 dark:text-gray-400 text-base md:text-lg leading-relaxed"
       >
         Especialista em{" "}
-        <strong className="text-gray-900 dark:text-white">desenvolvimento web full stack</strong>, crio experiências que unem{" "}
+        <strong className="text-gray-900 dark:text-white">desenvolvimento web full stack</strong>, crio experiencias que unem{" "}
         <span className="text-blue-600 dark:text-white font-medium">design moderno</span> e{" "}
-        <span className="text-blue-600 dark:text-white font-medium">tecnologia avançada</span>. Foco em{" "}
+        <span className="text-blue-600 dark:text-white font-medium">tecnologia avancada</span>. Foco em{" "}
         <strong>usabilidade, performance e escalabilidade</strong>.
       </motion.p>
 
@@ -129,7 +129,7 @@ const Work = ({ isDarkMode }: WorkProps) => {
         ))}
       </motion.div>
 
-      {/* CTA página de contato */}
+      {/* CTA pagina de contato */}
       <motion.div
         variants={cardVariants}
         className="mt-12 flex items-center justify-center"
@@ -150,7 +150,7 @@ const Work = ({ isDarkMode }: WorkProps) => {
                 }
               : {}
           }
-          aria-label="Ir para a página de contato"
+          aria-label="Ir para a pagina de contato"
         >
           Entre em contato
           <ArrowRight className="h-4 w-4 relative z-10" aria-hidden="true" />

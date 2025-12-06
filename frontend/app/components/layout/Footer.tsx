@@ -50,7 +50,7 @@ const Footer = ({ isDarkMode }: FooterProps) => {
         </motion.a>
       </div>
 
-      {/* Navegao */}
+      {/* Navegacao */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -59,7 +59,7 @@ const Footer = ({ isDarkMode }: FooterProps) => {
       >
         {/* Direitos */}
         <p className="text-gray-600 dark:text-gray-400 text-sm text-center sm:text-left">
-           {new Date().getFullYear()} Todos os Direitos Reservados | Desenvolvido por{" "}
+          {new Date().getFullYear()} Todos os direitos reservados | Desenvolvido por{" "}
           <span className="font-semibold text-blue-600">Lenon Alexandre da Cunha</span>
         </p>
 

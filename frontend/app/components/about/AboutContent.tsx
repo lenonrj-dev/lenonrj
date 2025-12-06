@@ -50,11 +50,11 @@ export default function AboutContent() {
             <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">
               Desenvolvedor <strong className="text-gray-900 dark:text-white">Full Stack</strong> no Brasil, especializado em
               <span className="font-medium"> Next.js, React, TailwindCSS</span> e animacoes com <span className="font-medium">Framer Motion</span>.
-              Constro interfaces acessiveis, performaticas e preparadas para <strong>SEO tecnico</strong>, com foco em
+              Construo interfaces acessiveis, performaticas e preparadas para <strong>SEO tecnico</strong>, com foco em
               usabilidade e escalabilidade para negocios reais.
             </p>
 
-            {/* Badges rpidas */}
+            {/* Badges rapidas */}
             <ul className="mt-6 flex flex-wrap gap-3 text-sm">
               {["UX  Performance  SEO", "Next.js  React", "Tailwind  Motion"].map((b, i) => (
                 <li
@@ -96,7 +96,7 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* RESUMO / MTRICAS */}
+      {/* RESUMO / METRICAS */}
       <motion.section
         id="resumo"
         initial="hidden"
@@ -119,15 +119,15 @@ export default function AboutContent() {
             </div>
             <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{box.description}</p>
 
-            {/* micro-copy SEO amigvel */}
+            {/* micro-copy SEO amigavel */}
             <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
-              Projetos focados em Core Web Vitals, boas prticas de acessibilidade e descoberta orgnica.
+              Projetos focados em Core Web Vitals, boas praticas de acessibilidade e descoberta organica.
             </p>
           </motion.div>
         ))}
       </motion.section>
 
-      {/* HISTRICO / TIMELINE (fictcia) */}
+      {/* HISTORICO / TIMELINE (ficticia) */}
       <motion.section
         id="trajetoria"
         initial="hidden"

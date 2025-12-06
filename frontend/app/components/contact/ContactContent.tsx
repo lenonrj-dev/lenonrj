@@ -43,6 +43,12 @@ const mapServiceToProjectType = (s = ""): FormState["projectType"] => {
   return "website";
 };
 
+const contactEndpoint =
+  process.env.NEXT_PUBLIC_CONTACT_API ||
+  (typeof window !== "undefined" && window.location.hostname === "localhost"
+    ? "http://localhost:4000/api/contact"
+    : "https://lenonrj-backend.vercel.app/api/contact");
+
 export default function ContactContent() {
   const params = useSearchParams();
   const prefill = useMemo(
@@ -93,7 +99,7 @@ export default function ContactContent() {
 
     setForm((f) => ({
       ...f,
-      subject: hasService ? `Solicitao: ${prefill.service}` : f.subject,
+      subject: hasService ? `Solicitacao: ${prefill.service}` : f.subject,
       projectType: hasService ? mapServiceToProjectType(prefill.service) : f.projectType,
       budget: hasBudget ? prefill.budget : f.budget,
       message:
@@ -110,11 +116,11 @@ export default function ContactContent() {
   const validate = () => {
     const e: ErrorsState = {};
     if (!form.name.trim()) e.name = "Informe seu nome.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Email invlido.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Email invalido.";
     if (form.phone && form.phone.replace(/\D/g, "").length < 10) e.phone = "Telefone/WhatsApp incompleto.";
     if (!form.subject.trim()) e.subject = "Digite um assunto.";
-    if (form.message.trim().length < 12) e.message = "Conte mais detalhes (mn. 12 caracteres).";
-    if (!form.budget) e.budget = "Selecione uma faixa de oramento.";
+    if (form.message.trim().length < 12) e.message = "Conte mais detalhes (minimo de 12 caracteres).";
+    if (!form.budget) e.budget = "Selecione uma faixa de orcamento.";
     if (!form.consent) e.consent = "Aceite o aviso de privacidade.";
     if (form.company.trim().length > 0) e.company = "Spam detectado.";
     setErrors(e);
@@ -124,10 +130,33 @@ export default function ContactContent() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validate()) return;
+    if (form.company.trim().length > 0) return; // honeypot
     try {
       setLoading(true);
-      // Integrao real aqui (API Routes / Resend / etc.)
-      await new Promise((r) => setTimeout(r, 1000));
+      const res = await fetch(contactEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          subject: form.subject,
+          message: [
+            form.message,
+            form.projectType ? `\nTipo de projeto: ${form.projectType}` : "",
+            form.budget ? `\nOrcamento: ${form.budget}` : "",
+            form._service ? `\nServico: ${form._service}` : "",
+            form._source ? `\nOrigem: ${form._source}` : "",
+            form._intent ? `\nIntencao: ${form._intent}` : "",
+          ]
+            .filter(Boolean)
+            .join(""),
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || "Falha ao enviar.");
+      }
       setSent(true);
       setForm({
         name: "",
@@ -145,8 +174,8 @@ export default function ContactContent() {
       });
       setErrors({});
       setTimeout(() => setSent(false), 4000);
-    } catch {
-      setErrors({ submit: "Falha ao enviar. Tente novamente em instantes." });
+    } catch (err: any) {
+      setErrors({ submit: err?.message || "Falha ao enviar. Tente novamente em instantes." });
     } finally {
       setLoading(false);
     }
@@ -220,21 +249,21 @@ export default function ContactContent() {
           <button
             onClick={clearPrefill}
             className="text-sm underline text-gray-700 dark:text-gray-300 shrink-0"
-            aria-label="Limpar pr-seleo"
+            aria-label="Limpar pre-selecao"
           >
             limpar
           </button>
         </div>
       )}
 
-      {/* AES RuPIDAS */}
+      {/* ACOES RAPIDAS */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={container}
         className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5"
-        aria-label="Aes rpidas"
+        aria-label="Acoes rapidas"
       >
         {[
           {
@@ -252,7 +281,7 @@ export default function ContactContent() {
             icon: <MessageCircle className="h-5 w-5" aria-hidden="true" />,
           },
           {
-            title: "servicos",
+            title: "Servicos",
             desc: "Veja projetos, processos e resultados antes de falarmos.",
             href: "/services",
             cta: "Ver servicos",
@@ -364,7 +393,7 @@ export default function ContactContent() {
           Envie uma mensagem
         </motion.h2>
         <motion.p variants={item} className="text-center text-sm text-gray-600 dark:text-gray-400 mt-2">
-          Compartilhe objetivo, prazo e referncias. Retorno com estimativa e prximos passos.
+          Compartilhe objetivo, prazo e referencias. Retorno com estimativa e proximos passos.
         </motion.p>
 
         <motion.form

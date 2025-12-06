@@ -59,10 +59,10 @@ const Header = ({ isDarkMode }: HeaderProps) => {
         className="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 text-base md:text-lg leading-relaxed"
       >
         Do Rio de Janeiro, com{" "}
-        <strong className="text-gray-900 dark:text-white">2+ anos de experiência</strong> em
+        <strong className="text-gray-900 dark:text-white">2+ anos de experiencia</strong> em
         projetos de alta performance. Eu uno{" "}
         <span className="text-blue-600 dark:text-white font-medium">UX/UI, Frontend e Backend</span>{" "}
-        para criar soluções modernas, acessíveis e escaláveis com Next.js, React e TailwindCSS.
+        para criar solucoes modernas, acessiveis e escalaveis com Next.js, React e TailwindCSS.
       </motion.p>
 
       <motion.ul
@@ -71,7 +71,7 @@ const Header = ({ isDarkMode }: HeaderProps) => {
         className="mt-2 flex flex-wrap items-center justify-center gap-2 text-xs"
         role="list"
       >
-        {["Core Web Vitals", "Acessibilidade AA", "SEO técnico + JSON-LD", "Framer Motion"].map((b) => (
+        {["Core Web Vitals", "Acessibilidade AA", "SEO tecnico + JSON-LD", "Framer Motion"].map((b) => (
           <li
             key={b}
             className="px-3 py-1 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-700 dark:text-gray-300"
@@ -101,7 +101,7 @@ const Header = ({ isDarkMode }: HeaderProps) => {
                 }
               : {}
           }
-          aria-label="Ir para a página de contato"
+          aria-label="Ir para a pagina de contato"
         >
           Falar sobre seu projeto
           <ArrowRight className="h-4 w-4 relative z-10" aria-hidden="true" />
@@ -111,9 +111,9 @@ const Header = ({ isDarkMode }: HeaderProps) => {
           href="/services"
           className="inline-flex items-center gap-2 font-medium px-8 py-2.5 rounded-full border transition
                      border-gray-900 bg-black text-white hover:opacity-90 dark:border-white/20 dark:bg-white dark:text-black"
-          aria-label="Ver portfólio"
+          aria-label="Ver portfolio"
         >
-          Ver portfólio
+          Ver portfolio
         </Link>
       </motion.div>
 
@@ -121,10 +121,10 @@ const Header = ({ isDarkMode }: HeaderProps) => {
         variants={textVariants}
         custom={1.0}
         className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm"
-        aria-label="Atalhos do herói"
+        aria-label="Atalhos do heroi"
       >
         <a href="#services" className="underline-offset-2 hover:underline text-gray-700 dark:text-gray-300">
-          Serviços
+          Servicos
         </a>
         <span className="text-gray-400"></span>
         <a href="#work" className="underline-offset-2 hover:underline text-gray-700 dark:text-gray-300">

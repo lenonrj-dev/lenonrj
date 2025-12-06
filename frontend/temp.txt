@@ -4,7 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
-    // Libera Cloudinary (qualquer pasta/tenancy do seu cloud)
+    // ? Libera Cloudinary (qualquer pasta/tenancy do seu cloud)
     remotePatterns: [
       {
         protocol: "https",
@@ -14,7 +14,7 @@ const nextConfig = {
     ],
     // Formatos mais leves
     formats: ["image/avif", "image/webp"],
-    // (opcional) se voce usar SVG do Cloudinary
+    // (opcional) se você usar SVG do Cloudinary
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     // (opcionais) ajuste caso queira controlar o responsive loader
@@ -23,7 +23,7 @@ const nextConfig = {
   },
 
   experimental: {
-    // Reduz bundle e melhora cold start do framer-motion
+    // ? reduz bundle e melhora cold start do framer-motion
     optimizePackageImports: ["framer-motion"],
   },
 };

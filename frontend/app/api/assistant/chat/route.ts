@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
-  if (!body) return NextResponse.json({ error: "Body inválido" }, { status: 400 });
+  if (!body) return NextResponse.json({ error: "Body invalido" }, { status: 400 });
   const { sessionId, message, pagePath } = body;
   if (!sessionId || !message) {
-    return NextResponse.json({ error: "Dados obrigatórios ausentes" }, { status: 400 });
+    return NextResponse.json({ error: "Dados obrigatorios ausentes" }, { status: 400 });
   }
 
   const endpoint = process.env.ASSISTANT_BACKEND_URL || "http://localhost:4000/api/assistant/chat";

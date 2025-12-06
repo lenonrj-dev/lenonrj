@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { assets } from "@/assets/assets";
 
-// Variants
 const container = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.18, delayChildren: 0.12 } },
@@ -16,20 +15,18 @@ const item = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
 };
 
-// Helper para gerar link com campos pre-preenchidos na pagina /contact
 const contactHref = ({ service, budget = "", source = "services" }) =>
-  `/contact?service=${encodeURIComponent(service)}&budget=${encodeURIComponent(
-    budget
-  )}&source=${encodeURIComponent(source)}`;
+  `/contact?service=${encodeURIComponent(service)}&budget=${encodeURIComponent(budget)}&source=${encodeURIComponent(
+    source
+  )}`;
 
 export default function ServicesContent() {
-  // Lista de servicos alinhada ao serviceData (SaaS, Ecommerce, Sites, Landing Pages, Dashboards, Blog App)
   const services = [
     {
       icon: assets.web_icon,
       title: "Saas B2B",
       pitch:
-        "Produtos SaaS com autenticacao, billing, onboarding guiado e dashboards claros. Prontos para crescer com o time comercial.",
+        "Produtos SaaS com autenticacao, billing, onboarding guiado e dashboards claros. Prontos para escalar com o time comercial.",
       bullets: ["Auth + Billing", "Onboarding/Trial", "Dashboards em tempo real"],
       badge: "Full-stack SaaS",
       budget: "+15000",
@@ -56,7 +53,7 @@ export default function ServicesContent() {
       icon: assets.graphics_icon,
       title: "Landing Pages",
       pitch:
-        "Landing pages de conversao com copy direta, testes A/B e integracoes de leads. Otimizadas para performance.",
+        "Landing pages de conversao com copy direta, testes A/B e integracoes de leads. Focadas em performance.",
       bullets: ["Copy orientada a acao", "Testes A/B", "Integracoes de leads"],
       badge: "Growth",
       budget: "3000-7000",
@@ -81,28 +78,53 @@ export default function ServicesContent() {
     },
   ];
 
-  //  Demos (substitua pelas URLs do Cloudinary e links reais)
   const demos = [
+    {
+      name: "Saas B2B ApplicationX",
+      desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844364/Automa%C3%A7%C3%A3o_vhl6pq.png",
+      demo: "https://ai-ateliux.vercel.app/",
+      tags: ["Dashboard", "APIs", "Clusters Analytics", "SEO Saas Design", "Checkout"],
+    },
+    {
+      name: "Blog ApplicationX",
+      desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1765026484/Screenshot_19_j49bol.png",
+      demo: "https://www.ateliux.blog/",
+      tags: ["Dashboard", "APIs", "Clusters Analytics", "SEO Blog Design"],
+    },
+    {
+      name: "WebSite AteliuX",
+      desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844365/Institucional_fcqvev.png",
+      demo: "https://ateliux-app.vercel.app/",
+      tags: ["Site Institucional", "Checkout", "SEO"],
+    },
+    {
+      name: "DevOps Analytics",
+      desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844363/DevOps_gci7qe.png",
+      demo: "https://ateliux-devops.vercel.app/dashboard/overview",
+      tags: ["Dashboard", "APIs", "Clusters Analytics"],
+    },
+    {
+      name: "Landing Page StoreX",
+      desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844365/Landing_Page_ddogk5.png",
+      demo: "https://marima-athleisure.vercel.app/",
+      tags: ["Landing Page", "Checkout", "SEO"],
+    },
     {
       name: "CRM Analytics",
       desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844365/ecommerce_pqbmpj.png",
-      mobileImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844365/ecommerce_pqbmpj.png",
-      demo: "https://sua-demo-crm.com",
+      demo: "https://ateliux-manager-ecommerce.vercel.app/dashboard",
       tags: ["Dashboard", "KPIs", "Filtros"],
     },
     {
       name: "Loja StoreX",
       desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764877248/Screenshot_8_qvffjj.png",
-      mobileImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764874328/EcommerceMoba_bd783d.png  ",
-      demo: "https://sua-demo-storex.com",
+      demo: "https://www.usemarima.com/",
       tags: ["E-commerce", "Checkout", "SEO"],
     },
   ];
 
   return (
     <main id="main-content" className="w-full px-6 md:px-[12%] py-24">
-
-      {/* JSON-LD Service + FAQPage */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -147,7 +169,7 @@ export default function ServicesContent() {
                 acceptedAnswer: {
                   "@type": "Answer",
                   text:
-                    "Pagamentos, CRM, e-mail marketing, ERPs, analytics, autenticacao e APIs REST/GraphQL.",
+                    "Pagamentos, CRM, email marketing, ERPs, analytics, autenticacao e APIs REST/GraphQL.",
                 },
               },
             ],
@@ -155,18 +177,15 @@ export default function ServicesContent() {
         }}
       />
 
-      {/* Header */}
       <header className="text-center mb-12">
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
-          Servicos
-        </h1>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">Servicos</h1>
         <p className="max-w-3xl mx-auto mt-4 text-gray-600 dark:text-gray-400">
           Solucoes modernas com Next.js, React, Tailwind e Framer Motion: SaaS B2B, Ecommerce, Sites, Landing Pages,
           Dashboards e Blog App - do design ao deploy, com foco em performance, UX e SEO.
         </p>
       </header>
 
-      {/* ===== Cards de Servio ===== */}
+      {/* Cards de Servico */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -187,7 +206,6 @@ export default function ServicesContent() {
               hover:-translate-y-0.5
             "
           >
-            {/* Header do card */}
             <div className="flex items-center gap-3">
               <Image src={s.icon} alt="" className="w-10 h-10" />
               <div>
@@ -203,10 +221,8 @@ export default function ServicesContent() {
               </div>
             </div>
 
-            {/* Pitch */}
             <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{s.pitch}</p>
 
-            {/* Bullets curtos */}
             <ul className="mt-4 grid grid-cols-1 gap-2 text-sm text-gray-700 dark:text-gray-200">
               {s.bullets.map((b, bi) => (
                 <li key={bi} className="flex items-center gap-2">
@@ -216,7 +232,6 @@ export default function ServicesContent() {
               ))}
             </ul>
 
-            {/* CTA principal (leva ao contato com dados pr-preenchidos) */}
             <div className="mt-6 flex items-center gap-3">
               <Link
                 href={contactHref({ service: s.title, budget: s.budget })}
@@ -236,7 +251,6 @@ export default function ServicesContent() {
               </Link>
             </div>
 
-            {/* Micro mtricas / trust (decorativo) */}
             <div className="mt-5 grid grid-cols-3 gap-3 text-center">
               <div className="rounded-xl bg-gray-50 dark:bg-neutral-900 p-3">
                 <div className="text-lg font-semibold text-gray-900 dark:text-white">A+</div>
@@ -255,7 +269,7 @@ export default function ServicesContent() {
         ))}
       </motion.section>
 
-      {/* ===== Processo & Qualificao (Lead Triage) ===== */}
+      {/* Processo & Qualificacao */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -264,24 +278,20 @@ export default function ServicesContent() {
         className="mt-16 rounded-2xl p-6 sm:p-8 bg-white dark:bg-black ring-1 ring-gray-200 dark:ring-white/10"
       >
         <motion.h2 variants={item} className="text-2xl font-bold text-gray-900 dark:text-white">
-          Processo e qualificao de projeto
+          Processo e qualificacao de projeto
         </motion.h2>
         <motion.p variants={item} className="mt-2 text-gray-600 dark:text-gray-400">
-          Triagem rpida para entender objetivos, prazos e oramento  e propor a melhor arquitetura.
+          Triagem rapida para entender objetivos, prazos e orcamento e propor a melhor arquitetura.
         </motion.p>
 
         <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-5">
           {[
-            { t: "1) Briefing", d: "Contexto, metas, pblico, integraes e riscos." },
-            { t: "2) Arquitetura", d: "Definio de pilares: dados, auth, pipelines, deploy." },
-            { t: "3) Prottipo", d: "Fluxos UX e telas-chave com animaes." },
-            { t: "4) Execuo", d: "Entrega por sprints, QA, monitoramento e Go Live." },
+            { t: "1) Briefing", d: "Contexto, metas, publico, integracoes e riscos." },
+            { t: "2) Arquitetura", d: "Definicao de pilares: dados, auth, pipelines, deploy." },
+            { t: "3) Prototipo", d: "Fluxos UX e telas chave com animacoes." },
+            { t: "4) Execucao", d: "Entrega por sprints, QA, monitoramento e Go Live." },
           ].map((et, i) => (
-            <motion.div
-              key={i}
-              variants={item}
-              className="rounded-xl p-5 bg-gray-50 dark:bg-neutral-900"
-            >
+            <motion.div key={i} variants={item} className="rounded-xl p-5 bg-gray-50 dark:bg-neutral-900">
               <h3 className="font-semibold text-gray-900 dark:text-white">{et.t}</h3>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{et.d}</p>
             </motion.div>
@@ -296,13 +306,11 @@ export default function ServicesContent() {
             Qualificar meu projeto
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            Tempo mdio de resposta: 2448h teis.
-          </span>
+          <span className="text-sm text-gray-600 dark:text-gray-400">Tempo medio de resposta: 24 a 48h uteis.</span>
         </div>
       </motion.section>
 
-      {/* ===== Apps & Demos: Desktop + Mobile ===== */}
+      {/* Apps & Demos */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -314,21 +322,18 @@ export default function ServicesContent() {
           Apps & Demos
         </motion.h2>
         <motion.p variants={item} className="text-gray-600 dark:text-gray-400 mb-6">
-          Visualizao realista para desktop e mobile  clique para abrir a demo.
+          Visualizacao realista para desktop - clique para abrir a demo.
         </motion.p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {demos.map((d, i) => (
             <motion.article key={i} variants={item} className="space-y-4">
               <div className="rounded-2xl ring-1 ring-gray-200 dark:ring-white/10 bg-white dark:bg-black overflow-hidden">
-                {/* Janela desktop */}
                 <div className="flex items-center gap-1 px-4 h-9 bg-gray-100 dark:bg-neutral-900">
                   <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
                   <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
                   <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
-                  <div className="ml-3 text-xs text-gray-500 dark:text-gray-400 truncate">
-                    {d.name}  Desktop
-                  </div>
+                  <div className="ml-3 text-xs text-gray-500 dark:text-gray-400 truncate">{d.name} Desktop</div>
                 </div>
                 <div className="relative aspect-[16/9]">
                   <Image
@@ -338,44 +343,22 @@ export default function ServicesContent() {
                     sizes="(min-width:1024px) 50vw, 100vw"
                     className="object-cover"
                   />
-                </div>
-              </div>
-
-              {/* Celular ao lado/abaixo */}
-              <div className="flex gap-4">
-                <div className="mx-auto lg:mx-0 relative w-40 sm:w-48 aspect-[9/19] rounded-[38px] ring-1 ring-gray-200 dark:ring-white/10 bg-white dark:bg-black overflow-hidden">
-                  <div className="absolute inset-x-0 top-0 h-6 bg-gray-100 dark:bg-neutral-900" />
-                  <Image
-                    src={d.mobileImg}
-                    alt={`${d.name} mobile`}
-                    fill
-                    sizes="160px"
-                    className="object-cover"
-                  />
-                </div>
-
-                <div className="flex-1 hidden sm:flex items-center">
-                  <div className="space-y-2">
-                    <div className="flex flex-wrap gap-2">
-                      {d.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="text-[11px] px-2 py-0.5 rounded-full ring-1 ring-gray-300 dark:ring-gray-700 text-gray-700 dark:text-gray-300"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    whileHover={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent p-4"
+                  >
                     <Link
                       href={d.demo}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/95 text-black hover:opacity-90 transition"
                     >
                       Ver demo
                       <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Link>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </motion.article>
@@ -383,7 +366,7 @@ export default function ServicesContent() {
         </div>
       </motion.section>
 
-      {/* FAQ enxuto */}
+      {/* FAQ */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -395,22 +378,20 @@ export default function ServicesContent() {
         <div className="divide-y divide-gray-200 dark:divide-gray-800 rounded-2xl ring-1 ring-gray-200 dark:ring-white/10 bg-white dark:bg-black">
           {[
             {
-              q: "Quais mtricas vocs acompanham aps o Go Liveu",
-              a: "Core Web Vitals, erros (Sentry), logs e vazo, analytics e converso. Ajustes contnuos para manter a qualidade.",
+              q: "Quais metricas voces acompanham apos o Go Live",
+              a: "Core Web Vitals, erros (Sentry), logs e vazao, analytics e conversao. Ajustes continuos para manter a qualidade.",
             },
             {
-              q: "Vocs entregam handoff organizadou",
-              a: "Sim. Documentao, Design System (tokens) e scripts de setup. Processo pronto para evoluir.",
+              q: "Voces entregam handoff organizado",
+              a: "Sim. Documentacao, Design System (tokens) e scripts de setup. Processo pronto para evoluir.",
             },
             {
-              q: "Qual a diferenca entre landing e site institucional?",
-              a: "Landing e focada em uma conversao/acao. O institucional aborda mais paginas, conteudos e navegacao completa.",
+              q: "Qual a diferenca entre landing e site institucional",
+              a: "Landing e focada em uma conversao ou acao. O institucional aborda mais paginas, conteudos e navegacao completa.",
             },
           ].map((f, i) => (
             <motion.details key={i} variants={item} className="p-5">
-              <summary className="cursor-pointer text-gray-900 dark:text-white font-medium">
-                {f.q}
-              </summary>
+              <summary className="cursor-pointer text-gray-900 dark:text-white font-medium">{f.q}</summary>
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{f.a}</p>
             </motion.details>
           ))}

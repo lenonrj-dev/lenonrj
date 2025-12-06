@@ -39,7 +39,7 @@ const Contact = ({ isDarkMode }: ContactProps) => {
         custom={0.2}
         className="text-center text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white"
       >
-        Vamos construir algo incrível
+        Vamos construir algo incrivel
       </motion.h1>
 
       <motion.h2
@@ -47,7 +47,7 @@ const Contact = ({ isDarkMode }: ContactProps) => {
         custom={0.35}
         className="text-center text-lg md:text-xl font-medium text-gray-600 mt-3 dark:text-gray-300"
       >
-        Produtos digitais com performance, acessibilidade e SEO técnico
+        Produtos digitais com performance, acessibilidade e SEO tecnico
       </motion.h2>
 
       <motion.p
@@ -58,7 +58,7 @@ const Contact = ({ isDarkMode }: ContactProps) => {
         Sou desenvolvedor <strong className="text-gray-900 dark:text-white">Full Stack</strong> focado em{" "}
         <span className="font-medium">Next.js, React, TailwindCSS</span> e{" "}
         <span className="font-medium">Framer Motion</span>. Do conceito ao deploy, entrego interfaces modernas,
-        escaláveis e fáceis de manter, com atenção aos <em>Core Web Vitals</em>, acessibilidade e melhores práticas de SEO.
+        escalaveis e faceis de manter, com atencao aos <em>Core Web Vitals</em>, acessibilidade e melhores praticas de SEO.
       </motion.p>
 
       <motion.ul
@@ -67,9 +67,9 @@ const Contact = ({ isDarkMode }: ContactProps) => {
         className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto"
       >
         {[
-          "UX sólida e acessível (AA)",
-          "SEO técnico + JSON-LD",
-          "Animações profissionais",
+          "UX solida e acessivel (AA)",
+          "SEO tecnico + JSON-LD",
+          "Animacoes profissionais",
           "Performance e escalabilidade",
         ].map((item, i) => (
           <li
@@ -121,7 +121,7 @@ const Contact = ({ isDarkMode }: ContactProps) => {
                 }
             : {}
           }
-          aria-label="Abrir página de contato"
+          aria-label="Abrir pagina de contato"
         >
           Falar sobre o seu projeto
           <ArrowRight className="h-4 w-4 relative z-10" aria-hidden="true" />
