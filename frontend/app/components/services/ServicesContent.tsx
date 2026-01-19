@@ -106,19 +106,19 @@ export default function ServicesContent() {
     {
       name: "Landing Page StoreX",
       desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844365/Landing_Page_ddogk5.png",
-      demo: "https://marima-athleisure.vercel.app/",
+      demo: "https://usemarima.com",
       tags: ["Landing Page", "Checkout", "SEO"],
     },
     {
       name: "CRM Analytics",
       desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764844365/ecommerce_pqbmpj.png",
-      demo: "https://ateliux-manager-ecommerce.vercel.app/dashboard",
+      demo: "https://ateliux-mng-ecommerce.vercel.app/dashboard",
       tags: ["Dashboard", "KPIs", "Filtros"],
     },
     {
       name: "Loja StoreX",
       desktopImg: "https://res.cloudinary.com/dlwclcbsj/image/upload/v1764877248/Screenshot_8_qvffjj.png",
-      demo: "https://www.usemarima.com/",
+      demo: "https://www.usemarima.com.br/",
       tags: ["E-commerce", "Checkout", "SEO"],
     },
   ];

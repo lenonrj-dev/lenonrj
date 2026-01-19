@@ -512,7 +512,7 @@ export default function ContactContent() {
             </label>
 
             <label className="flex flex-col text-sm">
-              <span className="text-gray-700 dark:text-gray-300 mb-1">Oramento estimado</span>
+              <span className="text-gray-700 dark:text-gray-300 mb-1">Orçamento estimado</span>
               <select
                 id="budget"
                 name="budget"
