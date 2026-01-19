@@ -218,7 +218,7 @@ export default function ContactContent() {
               },
             ],
             sameAs: [
-              "https://www.linkedin.com/in/lenonalexandre",
+              "https://www.linkedin.com/in/lenon-alexandre-da-cunha/",
               "https://github.com/lenonrj-dev",
               "https://www.instagram.com/lenonrj.dev/",
               "https://www.facebook.com/profile.php?id=61584248518802",
