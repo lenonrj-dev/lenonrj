@@ -1,27 +1,16 @@
 'use client';
-import Navbar from "./components/layout/Navbar";
-import Header from "./components/inicio/Header";
-import About from "./components/inicio/About";
-import Services from "./components/inicio/Services";
-import Work from "./components/inicio/Work";
-import Contact from "./components/inicio/Contact";
-import Footer from "./components/layout/Footer";
+
+import LinkBioMenu from "./components/link-bio/LinkBioMenu";
 import { useTheme } from "./lib/useTheme";
 import { PageLoader } from "./components/layout/PageLoader";
 
 export default function Home() {
-  const { isDarkMode, setIsDarkMode } = useTheme();
+  const { isDarkMode } = useTheme();
 
   return (
     <PageLoader>
-      <main id="main-content">
-        <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-        <Header isDarkMode={isDarkMode} />
-        <About isDarkMode={isDarkMode} />
-        <Services isDarkMode={isDarkMode} />
-        <Work isDarkMode={isDarkMode} />
-        <Contact isDarkMode={isDarkMode} />
-        <Footer isDarkMode={isDarkMode} />
+      <main id="main-content" className="min-h-[100svh]">
+        <LinkBioMenu isDarkMode={isDarkMode} />
       </main>
     </PageLoader>
   );
