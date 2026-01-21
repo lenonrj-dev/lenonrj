@@ -17,7 +17,8 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.seudominio.com"
 
 export const metadata: Metadata = {
   title: "Lenon Alexandre - Desenvolvedor Full Stack",
-  description: "Portfolio, servicos e contato. Next.js, React, Tailwind e Framer Motion.",
+  description:
+    "Portfolio, servicos e contato. Next.js, React, Tailwind e Framer Motion.",
   metadataBase: new URL(siteUrl),
 };
 
@@ -34,6 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
+        <meta
+          name="p:domain_verify"
+          content="1b657cd232673332dc530931aa4f7da4"
+        />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="bg-white text-gray-900 dark:bg-black dark:text-white antialiased">
